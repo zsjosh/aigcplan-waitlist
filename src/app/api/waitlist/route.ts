@@ -31,6 +31,7 @@ export async function POST(request: Request) {
     });
 
     // Try to send welcome email
+    let emailStatus = 'not_sent';
     try {
       const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-email`, {
         method: 'POST',
@@ -40,15 +41,30 @@ export async function POST(request: Request) {
         body: JSON.stringify({ email, nickname }),
       });
 
+      const emailData = await emailResponse.json();
+
       if (!emailResponse.ok) {
-        console.error('Failed to send welcome email:', await emailResponse.text());
+        console.error('Failed to send welcome email:', emailData);
+        emailStatus = 'failed';
+      } else {
+        emailStatus = 'sent';
       }
     } catch (error) {
       console.error('Error sending welcome email:', error);
+      emailStatus = 'failed';
     }
 
     return NextResponse.json(
-      { message: 'Successfully joined waitlist', entry },
+      { 
+        message: 'Successfully joined waitlist', 
+        entry,
+        emailStatus,
+        emailStatusMessage: emailStatus === 'sent' 
+          ? 'Welcome email sent successfully'
+          : emailStatus === 'failed'
+          ? 'Welcome email failed to send, but you are on the waitlist'
+          : 'Welcome email not sent'
+      },
       { status: 201 }
     );
   } catch (error: any) {

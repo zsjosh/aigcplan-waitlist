@@ -8,11 +8,13 @@ export default function Home() {
   const [nickname, setNickname] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+  const [emailStatus, setEmailStatus] = useState<'sent' | 'failed' | 'not_sent' | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
     setMessage('');
+    setEmailStatus(null);
 
     try {
       const response = await fetch('/api/waitlist', {
@@ -30,7 +32,8 @@ export default function Home() {
       }
 
       setStatus('success');
-      setMessage('Successfully joined the waitlist! Check your email for confirmation.');
+      setEmailStatus(data.emailStatus);
+      setMessage(data.emailStatusMessage);
       setEmail('');
       setNickname('');
     } catch (error) {
@@ -92,7 +95,11 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 className={`mt-6 p-4 rounded-lg ${
                   status === 'success'
-                    ? 'bg-green-500/20 text-green-400'
+                    ? emailStatus === 'sent'
+                      ? 'bg-green-500/20 text-green-400'
+                      : emailStatus === 'failed'
+                      ? 'bg-yellow-500/20 text-yellow-400'
+                      : 'bg-blue-500/20 text-blue-400'
                     : status === 'error'
                     ? 'bg-red-500/20 text-red-400'
                     : ''

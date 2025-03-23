@@ -23,6 +23,13 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!process.env.REPLY_TO_EMAIL) {
+      console.warn('REPLY_TO_EMAIL is not configured. Emails will be sent without reply-to address.');
+    }
+
+    console.log('Attempting to send email to:', email);
+    console.log('Using reply-to address:', process.env.REPLY_TO_EMAIL);
+
     const data = await resend.emails.send({
       from: 'AIGC Plan <noreply@aigcplan.com>',
       to: email,
@@ -31,11 +38,16 @@ export async function POST(request: Request) {
       replyTo: process.env.REPLY_TO_EMAIL,
     });
 
+    console.log('Email sent successfully:', data);
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Detailed error sending email:', error);
+    if (error instanceof Error) {
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
     return NextResponse.json(
-      { error: 'Failed to send email' },
+      { error: 'Failed to send email', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }
