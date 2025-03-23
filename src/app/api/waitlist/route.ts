@@ -13,36 +13,54 @@ if (process.env.NODE_ENV !== 'production') {
 
 export async function POST(request: Request) {
   try {
-    const { email } = await request.json();
+    const { email, nickname } = await request.json();
 
     if (!email) {
       return NextResponse.json(
-        { message: 'Email is required' },
+        { error: 'Email is required' },
         { status: 400 }
       );
     }
 
+    // Send welcome email
+    try {
+      const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, nickname }),
+      });
+
+      if (!emailResponse.ok) {
+        console.error('Failed to send welcome email:', await emailResponse.text());
+      }
+    } catch (error) {
+      console.error('Error sending welcome email:', error);
+    }
+
+    // Create waitlist entry
     const entry = await prisma.waitlistEntry.create({
-      data: { email },
+      data: {
+        email,
+        nickname: nickname || null,
+      },
     });
 
     return NextResponse.json(
       { message: 'Successfully joined waitlist', entry },
       { status: 201 }
     );
-  } catch (error) {
-    console.error('Waitlist error:', error);
-    if (error instanceof Error) {
-      if (error.message.includes('Unique constraint')) {
-        return NextResponse.json(
-          { message: 'This email is already on the waitlist' },
-          { status: 400 }
-        );
-      }
+  } catch (error: any) {
+    if (error.code === 'P2002') {
+      return NextResponse.json(
+        { error: 'This email is already on the waitlist' },
+        { status: 400 }
+      );
     }
-    
+    console.error('Error creating waitlist entry:', error);
     return NextResponse.json(
-      { message: 'Failed to join waitlist' },
+      { error: 'Failed to join waitlist' },
       { status: 500 }
     );
   }

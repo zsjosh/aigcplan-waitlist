@@ -1,15 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function Home() {
   const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
+    setMessage('');
 
     try {
       const response = await fetch('/api/waitlist', {
@@ -17,18 +20,19 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, nickname }),
       });
 
       const data = await response.json();
 
-      if (response.ok) {
-        setStatus('success');
-        setMessage('Thanks for joining our waitlist!');
-        setEmail('');
-      } else {
-        throw new Error(data.message || 'Something went wrong');
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to join waitlist');
       }
+
+      setStatus('success');
+      setMessage('Successfully joined the waitlist! Check your email for confirmation.');
+      setEmail('');
+      setNickname('');
     } catch (error) {
       setStatus('error');
       setMessage(error instanceof Error ? error.message : 'Failed to join waitlist');
@@ -36,87 +40,66 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-gray-900 to-gray-800 text-white">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 animate-gradient-x"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-              AIGC Plan
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8">
-              The Future of AI-Powered Content Creation
-            </p>
-            <div className="flex justify-center space-x-4">
-              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-100"></div>
-              <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse delay-200"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Waitlist Form */}
-      <main className="flex-1 flex flex-col items-center justify-center p-4">
-        <div className="max-w-md w-full space-y-8 bg-white/10 backdrop-blur-lg p-8 rounded-xl shadow-lg border border-white/20">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-white mb-4">Join Our Waitlist</h2>
-            <p className="text-gray-300 mb-8">Be the first to know when we launch!</p>
-          </div>
+    <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      <div className="container mx-auto px-4 py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+            Welcome to AIGC Plan
+          </h1>
+          <p className="text-xl text-gray-300 mb-12">
+            Join our exclusive waitlist for early access to the future of AI-powered content creation.
+          </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="email" className="sr-only">
-                Email address
-              </label>
+            <div className="space-y-4">
               <input
-                id="email"
                 type="email"
-                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-600 bg-gray-800/50 placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:z-10 sm:text-sm"
-                placeholder="Enter your email address"
+                placeholder="Enter your email"
+                required
+                className="w-full px-6 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+              />
+              <input
+                type="text"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+                placeholder="Your nickname (optional)"
+                className="w-full px-6 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
               />
             </div>
 
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+              className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold text-lg hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {status === 'loading' ? 'Joining...' : 'Join Waitlist'}
             </button>
           </form>
 
           {message && (
-            <div
-              className={`mt-4 p-4 rounded-md ${
-                status === 'success' ? 'bg-green-500/20 text-green-200' : 'bg-red-500/20 text-red-200'
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`mt-6 p-4 rounded-lg ${
+                status === 'success'
+                  ? 'bg-green-500/20 text-green-400'
+                  : status === 'error'
+                  ? 'bg-red-500/20 text-red-400'
+                  : ''
               }`}
             >
               {message}
-            </div>
+            </motion.div>
           )}
-        </div>
-      </main>
-
-      {/* Footer with Twitter Link */}
-      <footer className="py-4 px-6 text-gray-400">
-        <a
-          href="https://x.com/zs_josh"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center space-x-2 hover:text-blue-400 transition-colors"
-        >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-          <span>Follow us on X (Twitter)</span>
-        </a>
-      </footer>
-    </div>
+        </motion.div>
+      </div>
+    </main>
   );
 }
