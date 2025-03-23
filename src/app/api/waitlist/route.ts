@@ -22,7 +22,15 @@ export async function POST(request: Request) {
       );
     }
 
-    // Send welcome email
+    // Create waitlist entry first
+    const entry = await prisma.waitlistEntry.create({
+      data: {
+        email,
+        nickname: nickname || null,
+      },
+    });
+
+    // Try to send welcome email
     try {
       const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-email`, {
         method: 'POST',
@@ -38,14 +46,6 @@ export async function POST(request: Request) {
     } catch (error) {
       console.error('Error sending welcome email:', error);
     }
-
-    // Create waitlist entry
-    const entry = await prisma.waitlistEntry.create({
-      data: {
-        email,
-        nickname: nickname || null,
-      },
-    });
 
     return NextResponse.json(
       { message: 'Successfully joined waitlist', entry },
