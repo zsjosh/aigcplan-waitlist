@@ -17,6 +17,8 @@ export default function Home() {
     setEmailStatus(null);
 
     try {
+      console.log('Submitting form with:', { email, nickname });
+      
       const response = await fetch('/api/waitlist', {
         method: 'POST',
         headers: {
@@ -25,7 +27,9 @@ export default function Home() {
         body: JSON.stringify({ email, nickname }),
       });
 
+      console.log('Response status:', response.status);
       const data = await response.json();
+      console.log('Response data:', data);
 
       if (!response.ok) {
         throw new Error(data.error || 'Failed to join waitlist');
@@ -37,8 +41,15 @@ export default function Home() {
       setEmail('');
       setNickname('');
     } catch (error) {
+      console.error('Error details:', error);
       setStatus('error');
-      setMessage(error instanceof Error ? error.message : 'Failed to join waitlist');
+      if (error instanceof Error) {
+        setMessage(error.message === 'Failed to fetch' 
+          ? 'Unable to connect to the server. Please try again later.'
+          : error.message);
+      } else {
+        setMessage('An unexpected error occurred. Please try again later.');
+      }
     }
   };
 

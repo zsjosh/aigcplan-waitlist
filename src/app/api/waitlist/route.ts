@@ -13,9 +13,14 @@ if (process.env.NODE_ENV !== 'production') {
 
 export async function POST(request: Request) {
   try {
-    const { email, nickname } = await request.json();
+    console.log('Received waitlist request');
+    const body = await request.json();
+    console.log('Request body:', body);
+    
+    const { email, nickname } = body;
 
     if (!email) {
+      console.log('Missing email in request');
       return NextResponse.json(
         { error: 'Email is required' },
         { status: 400 }
@@ -23,16 +28,19 @@ export async function POST(request: Request) {
     }
 
     // Create waitlist entry first
+    console.log('Creating waitlist entry for:', email);
     const entry = await prisma.waitlistEntry.create({
       data: {
         email,
         nickname: nickname || null,
       },
     });
+    console.log('Waitlist entry created:', entry);
 
     // Try to send welcome email
     let emailStatus = 'not_sent';
     try {
+      console.log('Attempting to send welcome email to:', email);
       const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-email`, {
         method: 'POST',
         headers: {
@@ -42,6 +50,7 @@ export async function POST(request: Request) {
       });
 
       const emailData = await emailResponse.json();
+      console.log('Email API response:', emailData);
 
       if (!emailResponse.ok) {
         console.error('Failed to send welcome email:', emailData);
@@ -68,15 +77,15 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (error: any) {
+    console.error('Error in waitlist API:', error);
     if (error.code === 'P2002') {
       return NextResponse.json(
         { error: 'This email is already on the waitlist' },
         { status: 400 }
       );
     }
-    console.error('Error creating waitlist entry:', error);
     return NextResponse.json(
-      { error: 'Failed to join waitlist' },
+      { error: 'Failed to join waitlist', details: error.message },
       { status: 500 }
     );
   }
