@@ -1,7 +1,58 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+
+// Shooting star component
+const ShootingStar = () => {
+  return (
+    <motion.div
+      className="absolute w-1 h-1 bg-white rounded-full"
+      initial={{ 
+        x: '0%',
+        y: '0%',
+        opacity: 0,
+      }}
+      animate={{
+        x: ['0%', '100%'],
+        y: ['0%', '100%'],
+        opacity: [0, 1, 0],
+      }}
+      transition={{
+        duration: 2,
+        repeat: Infinity,
+        repeatDelay: Math.random() * 5 + 5,
+        ease: "linear"
+      }}
+      style={{
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+      }}
+    />
+  );
+};
+
+// Floating particle component
+const FloatingParticle = () => {
+  return (
+    <motion.div
+      className="absolute w-1 h-1 bg-white/20 rounded-full"
+      animate={{
+        y: [0, -20, 0],
+        opacity: [0.2, 0.5, 0.2],
+      }}
+      transition={{
+        duration: 3 + Math.random() * 2,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+      style={{
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+      }}
+    />
+  );
+};
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -55,17 +106,28 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-gray-900 to-gray-800 text-white relative overflow-hidden">
-      {/* Animated background elements */}
+      {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent animate-pulse"></div>
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f46e5/10_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5/10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 animate-gradient-x"></div>
-      </div>
+        {/* Grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f46e5/5_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5/5_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
+        
+        {/* Gradient overlays */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/5 via-transparent to-transparent animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/3 to-purple-500/3 animate-gradient-x"></div>
 
-      {/* Floating elements */}
-      <div className="absolute inset-0 overflow-hidden">
+        {/* Shooting stars */}
+        {[...Array(3)].map((_, i) => (
+          <ShootingStar key={i} />
+        ))}
+
+        {/* Floating particles */}
+        {[...Array(10)].map((_, i) => (
+          <FloatingParticle key={i} />
+        ))}
+
+        {/* Animated gradient orbs */}
         <motion.div
-          className="absolute w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+          className="absolute w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"
           animate={{
             x: [0, 100, 0],
             y: [0, 50, 0],
@@ -78,7 +140,7 @@ export default function Home() {
           style={{ top: '20%', left: '10%' }}
         />
         <motion.div
-          className="absolute w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+          className="absolute w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"
           animate={{
             x: [0, -100, 0],
             y: [0, -50, 0],
