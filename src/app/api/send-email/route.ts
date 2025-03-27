@@ -29,6 +29,7 @@ export async function POST(request: Request) {
 
     console.log('Attempting to send email to:', email);
     console.log('Using reply-to address:', process.env.REPLY_TO_EMAIL);
+    console.log('Using Resend API key:', process.env.RESEND_API_KEY ? 'Present' : 'Missing');
 
     const data = await resend.emails.send({
       from: 'AIGC Plan <noreply@aigcplan.com>',

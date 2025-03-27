@@ -41,6 +41,8 @@ export async function POST(request: Request) {
     let emailStatus = 'not_sent';
     try {
       console.log('Attempting to send welcome email to:', email);
+      console.log('Using APP URL:', process.env.NEXT_PUBLIC_APP_URL);
+      
       const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-email`, {
         method: 'POST',
         headers: {
