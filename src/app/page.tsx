@@ -3,32 +3,40 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-// Shooting star component
+// Shooting star component with trail effect
 const ShootingStar = () => {
+  const startX = Math.random() * 100;
+  const startY = -10; // Start above the viewport
+  const endX = startX + (Math.random() * 50 - 25); // Random end X position
+  const endY = 110; // End below the viewport
+  const duration = 1 + Math.random() * 2; // Random duration between 1-3 seconds
+  const delay = Math.random() * 10; // Random delay between 0-10 seconds
+
   return (
     <motion.div
-      className="absolute w-1 h-1 bg-white rounded-full"
+      className="absolute w-1 h-1"
       initial={{ 
-        x: '0%',
-        y: '0%',
+        x: `${startX}%`,
+        y: `${startY}%`,
         opacity: 0,
       }}
       animate={{
-        x: ['0%', '100%'],
-        y: ['0%', '100%'],
-        opacity: [0, 1, 0],
+        x: `${endX}%`,
+        y: `${endY}%`,
+        opacity: [0, 0.5, 0],
       }}
       transition={{
-        duration: 2,
+        duration: duration,
         repeat: Infinity,
-        repeatDelay: Math.random() * 5 + 5,
+        repeatDelay: delay,
         ease: "linear"
       }}
-      style={{
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-      }}
-    />
+    >
+      {/* Main star */}
+      <div className="absolute w-1 h-1 bg-white/30 rounded-full"></div>
+      {/* Trail effect */}
+      <div className="absolute w-20 h-[1px] bg-gradient-to-r from-white/20 to-transparent -translate-x-1/2"></div>
+    </motion.div>
   );
 };
 
@@ -36,10 +44,10 @@ const ShootingStar = () => {
 const FloatingParticle = () => {
   return (
     <motion.div
-      className="absolute w-1 h-1 bg-white/20 rounded-full"
+      className="absolute w-1 h-1 bg-white/10 rounded-full"
       animate={{
         y: [0, -20, 0],
-        opacity: [0.2, 0.5, 0.2],
+        opacity: [0.1, 0.3, 0.1],
       }}
       transition={{
         duration: 3 + Math.random() * 2,
@@ -109,25 +117,25 @@ export default function Home() {
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f46e5/5_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5/5_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f46e5/3_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5/3_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
         
         {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/5 via-transparent to-transparent animate-pulse"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/3 to-purple-500/3 animate-gradient-x"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/3 via-transparent to-transparent animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/2 to-purple-500/2 animate-gradient-x"></div>
 
         {/* Shooting stars */}
-        {[...Array(3)].map((_, i) => (
+        {[...Array(5)].map((_, i) => (
           <ShootingStar key={i} />
         ))}
 
         {/* Floating particles */}
-        {[...Array(10)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <FloatingParticle key={i} />
         ))}
 
         {/* Animated gradient orbs */}
         <motion.div
-          className="absolute w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"
+          className="absolute w-96 h-96 bg-blue-500/3 rounded-full blur-3xl"
           animate={{
             x: [0, 100, 0],
             y: [0, 50, 0],
@@ -140,7 +148,7 @@ export default function Home() {
           style={{ top: '20%', left: '10%' }}
         />
         <motion.div
-          className="absolute w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"
+          className="absolute w-96 h-96 bg-purple-500/3 rounded-full blur-3xl"
           animate={{
             x: [0, -100, 0],
             y: [0, -50, 0],
