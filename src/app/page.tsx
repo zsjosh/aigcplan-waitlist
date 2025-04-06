@@ -66,8 +66,7 @@ const FloatingParticle = () => {
 const GradientText = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => {
   return (
     <span className={`relative inline-block group ${className}`}>
-      <span className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-      <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 group-hover:from-blue-500 group-hover:to-purple-600 transition-all duration-300">
+      <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-blue-400/80 to-purple-500/80 group-hover:from-blue-400 group-hover:to-purple-500 transition-all duration-300">
         {children}
       </span>
     </span>
