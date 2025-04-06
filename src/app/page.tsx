@@ -6,11 +6,11 @@ import { motion } from 'framer-motion';
 // Shooting star component with trail effect
 const ShootingStar = () => {
   const startX = Math.random() * 100;
-  const startY = -10; // Start above the viewport
-  const endX = startX + (Math.random() * 50 - 25); // Random end X position
-  const endY = 110; // End below the viewport
-  const duration = 1 + Math.random() * 2; // Random duration between 1-3 seconds
-  const delay = Math.random() * 10; // Random delay between 0-10 seconds
+  const startY = -20; // Start higher above the viewport
+  const endX = startX + (Math.random() * 100 - 50); // Wider spread for end X position
+  const endY = 120; // End below the viewport
+  const duration = 2 + Math.random() * 3; // Longer duration between 2-5 seconds
+  const delay = Math.random() * 15; // Longer delay between 0-15 seconds
 
   return (
     <motion.div
@@ -23,7 +23,7 @@ const ShootingStar = () => {
       animate={{
         x: `${endX}%`,
         y: `${endY}%`,
-        opacity: [0, 0.5, 0],
+        opacity: [0, 0.8, 0],
       }}
       transition={{
         duration: duration,
@@ -33,9 +33,9 @@ const ShootingStar = () => {
       }}
     >
       {/* Main star */}
-      <div className="absolute w-1 h-1 bg-white/30 rounded-full"></div>
+      <div className="absolute w-1 h-1 bg-white/50 rounded-full"></div>
       {/* Trail effect */}
-      <div className="absolute w-20 h-[1px] bg-gradient-to-r from-white/20 to-transparent -translate-x-1/2"></div>
+      <div className="absolute w-32 h-[1px] bg-gradient-to-r from-white/40 via-white/20 to-transparent -translate-x-1/2"></div>
     </motion.div>
   );
 };
@@ -124,7 +124,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/2 to-purple-500/2 animate-gradient-x"></div>
 
         {/* Shooting stars */}
-        {[...Array(5)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <ShootingStar key={i} />
         ))}
 
