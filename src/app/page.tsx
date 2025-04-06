@@ -62,6 +62,18 @@ const FloatingParticle = () => {
   );
 };
 
+// Gradient text component
+const GradientText = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => {
+  return (
+    <span className={`relative inline-block group ${className}`}>
+      <span className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+      <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 group-hover:from-blue-500 group-hover:to-purple-600 transition-all duration-300">
+        {children}
+      </span>
+    </span>
+  );
+};
+
 export default function Home() {
   const [email, setEmail] = useState('');
   const [nickname, setNickname] = useState('');
@@ -171,11 +183,12 @@ export default function Home() {
           className="max-w-3xl w-full mx-auto px-4"
         >
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
-              Welcome to AIGC Plan
+            <h1 className="text-5xl font-bold mb-6">
+              <GradientText>Welcome to AIGC Plan</GradientText>
             </h1>
             <p className="text-xl text-gray-300">
-              Join our exclusive waitlist for early access to the future of AI-powered content creation.
+              Join our exclusive waitlist for early access to the future of{' '}
+              <GradientText className="text-xl">AI-powered content creation</GradientText>.
             </p>
           </div>
 
@@ -188,23 +201,26 @@ export default function Home() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   required
-                  className="w-full px-6 py-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="w-full px-6 py-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none transition-all hover:bg-gray-800/70"
                 />
                 <input
                   type="text"
                   value={nickname}
                   onChange={(e) => setNickname(e.target.value)}
                   placeholder="How should we call you? (optional)"
-                  className="w-full px-6 py-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="w-full px-6 py-3 rounded-lg bg-gray-800/50 border border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none transition-all hover:bg-gray-800/70"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold text-lg hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold text-lg hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed relative group overflow-hidden"
               >
-                {status === 'loading' ? 'Joining...' : 'Join Waitlist'}
+                <span className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                <span className="relative">
+                  {status === 'loading' ? 'Joining...' : 'Join Waitlist'}
+                </span>
               </button>
             </form>
 
@@ -236,12 +252,12 @@ export default function Home() {
           href="https://x.com/zs_josh"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center space-x-2 hover:text-blue-400 transition-colors"
+          className="flex items-center space-x-2 hover:text-blue-400 transition-colors group"
         >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
           </svg>
-          <span>Follow me on X</span>
+          <GradientText className="text-sm">Follow me on X</GradientText>
         </a>
       </footer>
     </div>

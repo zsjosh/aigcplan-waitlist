@@ -1,109 +1,121 @@
 # AIGC Plan Waitlist
 
-A modern waitlist website built with Next.js, Prisma, and PostgreSQL. Features a beautiful UI with animations and email notifications.
+A modern, interactive waitlist website built with Next.js, Prisma, and PostgreSQL. Features a beautiful UI with dynamic animations and email notifications.
 
 ## Features
 
-- Modern, responsive design with animations
-- Email collection with optional nickname
-- Welcome email notifications using Resend
-- PostgreSQL database with Prisma ORM
-- Real-time form validation and feedback
-- Beautiful UI with gradient effects and animations
+- 🎨 **Modern Design**
+  - Beautiful gradient text effects with hover animations
+  - Dynamic background with shooting stars and floating particles
+  - Smooth transitions and interactive elements
+  - Responsive layout for all devices
+
+- ✉️ **Email Collection**
+  - Secure email storage in PostgreSQL database
+  - Real-time form validation
+  - Optional nickname collection
+  - Duplicate email prevention
+
+- 📧 **Welcome Email**
+  - Automatic welcome email upon signup
+  - Professional email template design
+  - Reply-to functionality for user communication
+  - Error handling and logging
+
+- 🎭 **Interactive UI**
+  - Gradient text with hover effects
+  - Animated background elements
+  - Smooth form transitions
+  - Responsive feedback messages
 
 ## Tech Stack
 
-- **Framework**: Next.js 14
-- **Database**: PostgreSQL (via Neon)
-- **ORM**: Prisma
-- **Email Service**: Resend
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Deployment**: Vercel
+- **Frontend**
+  - Next.js 14 with App Router
+  - Tailwind CSS for styling
+  - Framer Motion for animations
+  - React Email for email templates
+
+- **Backend**
+  - PostgreSQL database
+  - Prisma ORM
+  - Resend for email delivery
+  - Vercel for deployment
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18.17 or later
 - PostgreSQL database
-- Resend account for email service
+- Resend account for email functionality
 
 ### Environment Variables
 
 Create a `.env` file in the root directory with the following variables:
 
 ```env
-# Database
-DATABASE_URL='your_postgresql_connection_string'
-
-# Email configuration
-RESEND_API_KEY='your_resend_api_key'
-REPLY_TO_EMAIL='your_reply_email'
-NEXT_PUBLIC_APP_URL='your_app_url'
+DATABASE_URL="postgresql://user:password@localhost:5432/waitlist"
+RESEND_API_KEY="your_resend_api_key"
+REPLY_TO_EMAIL="your_reply_email@example.com"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
 ### Installation
 
 1. Clone the repository:
-```bash
-git clone https://github.com/zsjosh/aigcplan-waitlist.git
-cd aigcplan-waitlist
-```
+   ```bash
+   git clone https://github.com/yourusername/aigcplan-waitlist.git
+   cd aigcplan-waitlist
+   ```
 
 2. Install dependencies:
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
 
 3. Set up the database:
-```bash
-npx prisma generate
-npx prisma db push
-```
+   ```bash
+   npx prisma migrate dev
+   ```
 
-4. Run the development server:
-```bash
-npm run dev
-```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-The application will be available at `http://localhost:3000`.
-
-## Deployment
+### Deployment
 
 1. Push your code to GitHub
 2. Connect your repository to Vercel
-3. Add the following environment variables in Vercel:
-   - `DATABASE_URL`
-   - `RESEND_API_KEY`
-   - `REPLY_TO_EMAIL`
-   - `NEXT_PUBLIC_APP_URL`
+3. Add the environment variables in Vercel's project settings
+4. Deploy!
 
 ## Features in Detail
 
+### Modern Design
+- Gradient text with hover effects that create a glowing animation
+- Dynamic background with shooting stars and floating particles
+- Smooth transitions and interactive elements
+- Responsive layout that works on all devices
+
 ### Email Collection
-- Users can submit their email address
-- Optional nickname field for personalization
-- Real-time validation and feedback
-- Duplicate email prevention
+- Secure storage of email addresses in PostgreSQL
+- Real-time form validation with visual feedback
+- Optional nickname collection for personalization
+- Duplicate email prevention with user feedback
 
 ### Welcome Email
-- Automated welcome email using Resend
-- Personalized greeting with nickname
-- Professional email template
+- Automatic welcome email sent upon successful signup
+- Professional email template with gradient design
 - Reply-to functionality for user communication
+- Comprehensive error handling and logging
 
-### Database
-- PostgreSQL database for reliable data storage
-- Prisma ORM for type-safe database operations
-- Efficient schema design for waitlist entries
-
-### UI/UX
-- Modern gradient background with animations
-- Responsive design for all devices
-- Loading states and error handling
-- Beautiful form design with focus states
-- Animated feedback messages
+### Interactive UI
+- Gradient text components with hover animations
+- Animated background elements (shooting stars, particles)
+- Smooth form transitions and feedback
+- Responsive design for all screen sizes
 
 ## Contributing
 
@@ -111,4 +123,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
