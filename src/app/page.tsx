@@ -15,14 +15,18 @@ const ShootingStar = () => {
   return (
     <motion.div
       className="absolute w-2 h-2"
+      style={{
+        left: `${startX}%`,
+        top: `${startY}%`,
+      }}
       initial={{ 
-        x: `${startX}%`,
-        y: `${startY}%`,
+        x: 0,
+        y: 0,
         opacity: 0,
       }}
       animate={{
-        x: `${endX}%`,
-        y: `${endY}%`,
+        x: `${endX - startX}%`,
+        y: `${endY - startY}%`,
         opacity: [0, 0.8, 0],
       }}
       transition={{
