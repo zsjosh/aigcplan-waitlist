@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, createContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import React from 'react';
 
 // Theme context
-const ThemeContext = React.createContext({
+const ThemeContext = createContext({
   theme: 'dark',
   toggleTheme: () => {},
 });
@@ -126,7 +126,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="fixed top-4 right-4 p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300"
+      className="fixed top-4 right-4 p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 z-50"
     >
       {theme === 'dark' ? (
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
