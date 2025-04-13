@@ -5,28 +5,28 @@ A modern, interactive waitlist website built with Next.js, Prisma, and PostgreSQ
 ## Features
 
 - 🎨 **Modern Design**
-  - Beautiful gradient text effects with hover animations
-  - Dynamic background with shooting stars and floating particles
-  - Smooth transitions and interactive elements
+  - Elegant form design with balanced proportions
+  - Dynamic background with shooting stars effect
+  - Smooth hover animations and transitions
   - Responsive layout for all devices
+
+- ✨ **Interactive Elements**
+  - Subtle gradient text effects
+  - Animated background particles
+  - Smooth form transitions
+  - Responsive feedback messages
 
 - ✉️ **Email Collection**
   - Secure email storage in PostgreSQL database
-  - Real-time form validation
   - Optional nickname collection
+  - Real-time form validation
   - Duplicate email prevention
 
 - 📧 **Welcome Email**
   - Automatic welcome email upon signup
   - Professional email template design
-  - Reply-to functionality for user communication
+  - Reply-to functionality
   - Error handling and logging
-
-- 🎭 **Interactive UI**
-  - Gradient text with hover effects
-  - Animated background elements
-  - Smooth form transitions
-  - Responsive feedback messages
 
 ## Tech Stack
 
@@ -34,13 +34,33 @@ A modern, interactive waitlist website built with Next.js, Prisma, and PostgreSQ
   - Next.js 14 with App Router
   - Tailwind CSS for styling
   - Framer Motion for animations
-  - React Email for email templates
+  - React Email for templates
 
 - **Backend**
   - PostgreSQL database
   - Prisma ORM
   - Resend for email delivery
   - Vercel for deployment
+
+## UI Components
+
+### Form Design
+- Carefully balanced input field proportions
+- Consistent padding and rounded corners
+- Smooth hover and focus states
+- Elegant button design with gradient effects
+
+### Animations
+- Shooting stars across the viewport
+- Floating particles in the background
+- Smooth hover transitions
+- Loading and success states
+
+### Responsive Design
+- Mobile-first approach
+- Flexible layout system
+- Optimized for all screen sizes
+- Consistent spacing and typography
 
 ## Getting Started
 
@@ -90,32 +110,6 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 2. Connect your repository to Vercel
 3. Add the environment variables in Vercel's project settings
 4. Deploy!
-
-## Features in Detail
-
-### Modern Design
-- Gradient text with hover effects that create a glowing animation
-- Dynamic background with shooting stars and floating particles
-- Smooth transitions and interactive elements
-- Responsive layout that works on all devices
-
-### Email Collection
-- Secure storage of email addresses in PostgreSQL
-- Real-time form validation with visual feedback
-- Optional nickname collection for personalization
-- Duplicate email prevention with user feedback
-
-### Welcome Email
-- Automatic welcome email sent upon successful signup
-- Professional email template with gradient design
-- Reply-to functionality for user communication
-- Comprehensive error handling and logging
-
-### Interactive UI
-- Gradient text components with hover animations
-- Animated background elements (shooting stars, particles)
-- Smooth form transitions and feedback
-- Responsive design for all screen sizes
 
 ## Contributing
 
