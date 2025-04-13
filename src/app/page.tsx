@@ -34,21 +34,24 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-// Shooting star component with trail effect
+// Enhanced shooting star component
 const ShootingStar = () => {
   const startX = Math.random() * 100;
-  const startY = -20; // Start higher above the viewport
-  const endX = startX + (Math.random() * 100 - 50); // Wider spread for end X position
-  const endY = 120; // End below the viewport
-  const duration = 2 + Math.random() * 3; // Longer duration between 2-5 seconds
-  const delay = Math.random() * 15; // Longer delay between 0-15 seconds
+  const startY = -20;
+  const endX = startX + (Math.random() * 100 - 50);
+  const endY = 120;
+  const duration = 2 + Math.random() * 3;
+  const delay = Math.random() * 15;
+  const size = Math.random() * 2 + 1;
 
   return (
     <motion.div
-      className="absolute w-2 h-2"
+      className="absolute"
       style={{
         left: `${startX}%`,
         top: `${startY}%`,
+        width: `${size}px`,
+        height: `${size}px`,
       }}
       initial={{ 
         x: 0,
@@ -67,19 +70,19 @@ const ShootingStar = () => {
         ease: "linear"
       }}
     >
-      {/* Main star */}
-      <div className="absolute w-2 h-2 bg-white/70 rounded-full"></div>
-      {/* Trail effect */}
+      <div className="absolute w-full h-full bg-white rounded-full"></div>
       <div className="absolute w-40 h-[2px] bg-gradient-to-r from-white/60 via-white/30 to-transparent -translate-x-1/2"></div>
     </motion.div>
   );
 };
 
-// Floating particle component with enhanced animation
+// Enhanced floating particle component
 const FloatingParticle = () => {
-  const size = Math.random() * 2 + 1;
+  const size = Math.random() * 3 + 1;
   const duration = 3 + Math.random() * 2;
   const delay = Math.random() * 2;
+  const startX = Math.random() * 100;
+  const startY = Math.random() * 100;
 
   return (
     <motion.div
@@ -88,11 +91,12 @@ const FloatingParticle = () => {
         width: `${size}px`,
         height: `${size}px`,
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
+        top: `${startY}%`,
+        left: `${startX}%`,
       }}
       animate={{
         y: [0, -20, 0],
+        x: [0, Math.random() * 20 - 10, 0],
         opacity: [0.1, 0.3, 0.1],
         scale: [1, 1.2, 1],
       }}
@@ -102,6 +106,32 @@ const FloatingParticle = () => {
         repeatDelay: delay,
         ease: "easeInOut"
       }}
+    />
+  );
+};
+
+// New animated gradient orb component
+const GradientOrb = ({ 
+  color, 
+  size = 96, 
+  position = { top: '20%', left: '10%' },
+  animation = { x: [0, 100, 0], y: [0, 50, 0] }
+}: { 
+  color: string;
+  size?: number;
+  position?: { top: string; left?: string; right?: string };
+  animation?: { x: number[]; y: number[] };
+}) => {
+  return (
+    <motion.div
+      className={`absolute w-${size} h-${size} rounded-full blur-3xl transition-opacity duration-500 ${color}`}
+      animate={animation}
+      transition={{
+        duration: 20,
+        repeat: Infinity,
+        ease: "linear"
+      }}
+      style={position}
     />
   );
 };
@@ -225,7 +255,7 @@ const HomeContent = () => {
         <AnimatePresence>
           {theme === 'dark' && (
             <>
-              {[...Array(12)].map((_, i) => (
+              {[...Array(15)].map((_, i) => (
                 <ShootingStar key={i} />
               ))}
             </>
@@ -233,40 +263,30 @@ const HomeContent = () => {
         </AnimatePresence>
 
         {/* Floating particles */}
-        {[...Array(15)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <FloatingParticle key={i} />
         ))}
 
         {/* Animated gradient orbs */}
-        <motion.div
-          className={`absolute w-96 h-96 rounded-full blur-3xl transition-opacity duration-500 ${
-            theme === 'light' ? 'bg-blue-100/30' : 'bg-blue-500/3'
-          }`}
-          animate={{
-            x: [0, 100, 0],
-            y: [0, 50, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          style={{ top: '20%', left: '10%' }}
+        <GradientOrb
+          color={theme === 'light' ? 'bg-blue-100/30' : 'bg-blue-500/3'}
+          position={{ top: '20%', left: '10%' }}
+          animation={{ x: [0, 100, 0], y: [0, 50, 0] }}
         />
-        <motion.div
-          className={`absolute w-96 h-96 rounded-full blur-3xl transition-opacity duration-500 ${
-            theme === 'light' ? 'bg-purple-100/30' : 'bg-purple-500/3'
-          }`}
-          animate={{
-            x: [0, -100, 0],
-            y: [0, -50, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          style={{ top: '60%', right: '10%' }}
+        <GradientOrb
+          color={theme === 'light' ? 'bg-purple-100/30' : 'bg-purple-500/3'}
+          position={{ top: '60%', right: '10%' }}
+          animation={{ x: [0, -100, 0], y: [0, -50, 0] }}
+        />
+        <GradientOrb
+          color={theme === 'light' ? 'bg-pink-100/20' : 'bg-pink-500/2'}
+          position={{ top: '40%', left: '30%' }}
+          animation={{ x: [0, 50, 0], y: [0, -30, 0] }}
+        />
+        <GradientOrb
+          color={theme === 'light' ? 'bg-indigo-100/20' : 'bg-indigo-500/2'}
+          position={{ top: '70%', right: '30%' }}
+          animation={{ x: [0, -30, 0], y: [0, 20, 0] }}
         />
       </div>
 
