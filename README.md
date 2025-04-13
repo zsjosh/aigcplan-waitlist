@@ -1,74 +1,56 @@
 # AIGC Plan Waitlist
 
-A modern, interactive waitlist website built with Next.js, Prisma, and PostgreSQL. Features a beautiful UI with dynamic animations and email notifications.
+A modern waitlist application built with Next.js, Prisma, and PostgreSQL. Features a beautiful UI with dark/light mode support, email notifications, and real-time form validation.
 
 ## Features
 
-- 🎨 **Modern Design**
-  - Elegant form design with balanced proportions
-  - Dynamic background with shooting stars effect
-  - Smooth hover animations and transitions
+- **Modern Design**
+  - Clean and elegant UI with smooth animations
+  - Dark and light mode support
   - Responsive layout for all devices
+  - Beautiful gradient effects and dynamic backgrounds
 
-- ✨ **Interactive Elements**
-  - Subtle gradient text effects
-  - Animated background particles
-  - Smooth form transitions
-  - Responsive feedback messages
-
-- ✉️ **Email Collection**
-  - Secure email storage in PostgreSQL database
-  - Optional nickname collection
+- **Interactive Elements**
   - Real-time form validation
-  - Duplicate email prevention
+  - Smooth transitions and hover effects
+  - Dynamic background animations
+  - Theme toggle button
 
-- 📧 **Welcome Email**
-  - Automatic welcome email upon signup
-  - Professional email template design
-  - Reply-to functionality
+- **Email Collection**
+  - Secure email storage
+  - Optional nickname collection
+  - Duplicate email prevention
+  - Real-time status feedback
+
+- **Welcome Emails**
+  - Automated welcome emails
+  - Customizable email templates
+  - Email status tracking
   - Error handling and logging
 
 ## Tech Stack
 
 - **Frontend**
-  - Next.js 14 with App Router
-  - Tailwind CSS for styling
-  - Framer Motion for animations
-  - React Email for templates
+  - Next.js 14
+  - Tailwind CSS
+  - Framer Motion
+  - React Context API
 
 - **Backend**
-  - PostgreSQL database
+  - PostgreSQL
   - Prisma ORM
-  - Resend for email delivery
-  - Vercel for deployment
+  - Resend (Email Service)
 
-## UI Components
-
-### Form Design
-- Carefully balanced input field proportions
-- Consistent padding and rounded corners
-- Smooth hover and focus states
-- Elegant button design with gradient effects
-
-### Animations
-- Shooting stars across the viewport
-- Floating particles in the background
-- Smooth hover transitions
-- Loading and success states
-
-### Responsive Design
-- Mobile-first approach
-- Flexible layout system
-- Optimized for all screen sizes
-- Consistent spacing and typography
+- **Deployment**
+  - Vercel
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18.17 or later
+- Node.js 18+
 - PostgreSQL database
-- Resend account for email functionality
+- Resend API key
 
 ### Environment Variables
 
@@ -77,7 +59,7 @@ Create a `.env` file in the root directory with the following variables:
 ```env
 DATABASE_URL="postgresql://user:password@localhost:5432/waitlist"
 RESEND_API_KEY="your_resend_api_key"
-REPLY_TO_EMAIL="your_reply_email@example.com"
+REPLY_TO_EMAIL="your_reply_to_email"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
@@ -94,7 +76,7 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
    npm install
    ```
 
-3. Set up the database:
+3. Run database migrations:
    ```bash
    npx prisma migrate dev
    ```
@@ -108,12 +90,58 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
 1. Push your code to GitHub
 2. Connect your repository to Vercel
-3. Add the environment variables in Vercel's project settings
+3. Add environment variables in Vercel project settings
 4. Deploy!
+
+## Features in Detail
+
+### UI Components
+
+- **Form Design**
+  - Clean and modern input fields
+  - Smooth hover and focus states
+  - Real-time validation feedback
+  - Accessible form controls
+
+- **Animations**
+  - Smooth page transitions
+  - Dynamic background effects
+  - Hover animations
+  - Loading states
+
+- **Theme Support**
+  - Dark and light mode
+  - Theme persistence using localStorage
+  - Smooth theme transitions
+  - Adaptive color schemes
+
+- **Responsive Design**
+  - Mobile-first approach
+  - Flexible layouts
+  - Adaptive typography
+  - Touch-friendly interactions
+
+### Email System
+
+- **Welcome Emails**
+  - Personalized greeting
+  - Waitlist status information
+  - Reply-to functionality
+  - Error handling
+
+- **Database Integration**
+  - Secure data storage
+  - Email validation
+  - Status tracking
+  - Error logging
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
