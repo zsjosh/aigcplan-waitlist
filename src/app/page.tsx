@@ -196,7 +196,7 @@ export default function Home() {
     <ThemeProvider>
       <div className={`min-h-screen flex flex-col relative overflow-hidden transition-colors duration-500 ${
         theme === 'light' 
-          ? 'bg-gradient-to-b from-blue-50 to-purple-50 text-gray-900' 
+          ? 'bg-gradient-to-b from-white to-gray-50 text-gray-900' 
           : 'bg-gradient-to-b from-gray-900 to-gray-800 text-white'
       }`}>
         <ThemeToggle />
@@ -206,20 +206,20 @@ export default function Home() {
           {/* Grid pattern */}
           <div className={`absolute inset-0 transition-opacity duration-500 ${
             theme === 'light' 
-              ? 'bg-[linear-gradient(to_right,#4f46e5/1_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5/1_1px,transparent_1px)]' 
+              ? 'bg-[linear-gradient(to_right,#e5e7eb/1_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb/1_1px,transparent_1px)]' 
               : 'bg-[linear-gradient(to_right,#4f46e5/3_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5/3_1px,transparent_1px)]'
           } bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]`}></div>
           
           {/* Gradient overlays */}
           <div className={`absolute inset-0 transition-opacity duration-500 ${
             theme === 'light'
-              ? 'bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/1 via-transparent to-transparent'
+              ? 'bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-100/50 via-transparent to-transparent'
               : 'bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/3 via-transparent to-transparent'
           } animate-pulse`}></div>
           
           <div className={`absolute inset-0 transition-opacity duration-500 ${
             theme === 'light'
-              ? 'bg-gradient-to-r from-blue-500/1 to-purple-500/1'
+              ? 'bg-gradient-to-r from-blue-100/30 to-purple-100/30'
               : 'bg-gradient-to-r from-blue-500/2 to-purple-500/2'
           } animate-gradient-x`}></div>
 
@@ -242,7 +242,7 @@ export default function Home() {
           {/* Animated gradient orbs */}
           <motion.div
             className={`absolute w-96 h-96 rounded-full blur-3xl transition-opacity duration-500 ${
-              theme === 'light' ? 'bg-blue-500/1' : 'bg-blue-500/3'
+              theme === 'light' ? 'bg-blue-100/30' : 'bg-blue-500/3'
             }`}
             animate={{
               x: [0, 100, 0],
@@ -257,7 +257,7 @@ export default function Home() {
           />
           <motion.div
             className={`absolute w-96 h-96 rounded-full blur-3xl transition-opacity duration-500 ${
-              theme === 'light' ? 'bg-purple-500/1' : 'bg-purple-500/3'
+              theme === 'light' ? 'bg-purple-100/30' : 'bg-purple-500/3'
             }`}
             animate={{
               x: [0, -100, 0],
@@ -290,7 +290,9 @@ export default function Home() {
                 <GradientText>Welcome to AIGC Plan</GradientText>
               </motion.h1>
               <motion.p 
-                className="text-xl text-gray-300"
+                className={`text-xl ${
+                  theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+                }`}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
@@ -303,7 +305,7 @@ export default function Home() {
             <motion.div
               className={`backdrop-blur-lg p-8 rounded-xl shadow-lg border transition-colors duration-500 ${
                 theme === 'light'
-                  ? 'bg-white/50 border-gray-200'
+                  ? 'bg-white/80 border-gray-200'
                   : 'bg-white/10 border-white/20'
               }`}
               initial={{ opacity: 0, y: 20 }}
@@ -320,7 +322,7 @@ export default function Home() {
                     required
                     className={`w-full px-8 py-5 text-base rounded-xl transition-colors duration-500 ${
                       theme === 'light'
-                        ? 'bg-white/80 border-gray-200 focus:border-blue-500'
+                        ? 'bg-white border-gray-200 focus:border-blue-500'
                         : 'bg-gray-800/50 border-gray-700 focus:border-blue-500'
                     } border focus:ring-2 focus:ring-blue-500 outline-none hover:bg-opacity-90`}
                   />
@@ -331,7 +333,7 @@ export default function Home() {
                     placeholder="How should we call you? (optional)"
                     className={`w-full px-8 py-5 text-base rounded-xl transition-colors duration-500 ${
                       theme === 'light'
-                        ? 'bg-white/80 border-gray-200 focus:border-blue-500'
+                        ? 'bg-white border-gray-200 focus:border-blue-500'
                         : 'bg-gray-800/50 border-gray-700 focus:border-blue-500'
                     } border focus:ring-2 focus:ring-blue-500 outline-none hover:bg-opacity-90`}
                   />
@@ -342,8 +344,8 @@ export default function Home() {
                   disabled={status === 'loading'}
                   className={`w-full px-8 py-4 rounded-xl font-medium text-base transition-all duration-500 ${
                     theme === 'light'
-                      ? 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700'
-                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700'
+                      ? 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white'
+                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white'
                   } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed relative group overflow-hidden`}
                 >
                   <span className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
@@ -360,12 +362,12 @@ export default function Home() {
                   className={`mt-6 p-4 rounded-lg ${
                     status === 'success'
                       ? emailStatus === 'sent'
-                        ? 'bg-green-500/20 text-green-400'
+                        ? 'bg-green-500/20 text-green-600'
                         : emailStatus === 'failed'
-                        ? 'bg-yellow-500/20 text-yellow-400'
-                        : 'bg-blue-500/20 text-blue-400'
+                        ? 'bg-yellow-500/20 text-yellow-600'
+                        : 'bg-blue-500/20 text-blue-600'
                       : status === 'error'
-                      ? 'bg-red-500/20 text-red-400'
+                      ? 'bg-red-500/20 text-red-600'
                       : ''
                   }`}
                 >
