@@ -116,17 +116,19 @@ const GradientOrb = ({
   color, 
   size = 96, 
   position = { top: '20%', left: '10%' },
-  animation = { x: [0, 100, 0], y: [0, 50, 0] }
+  animation = { x: [0, 100, 0], y: [0, 50, 0] },
+  className = ''
 }: { 
   theme: 'light' | 'dark';
   color: string;
   size?: number;
   position?: { top: string; left?: string; right?: string };
   animation?: { x: number[]; y: number[] };
+  className?: string;
 }) => {
   return (
     <motion.div
-      className={`absolute rounded-full blur-3xl z-0 ${color}`}
+      className={`absolute rounded-full blur-3xl z-0 ${color} ${className}`}
       style={{
         width: `${size}px`,
         height: `${size}px`,
@@ -236,21 +238,24 @@ const HomeContent = () => {
     }`}>
       <ThemeToggle />
       
-      {/* Background effects */}
+      {/* Enhanced background effects */}
       <div className="absolute inset-0 overflow-hidden z-0">
         {/* Grid pattern */}
-        <div className={`absolute inset-0 transition-opacity duration-500 ${
-          themeMode === 'light' 
-            ? 'bg-[linear-gradient(to_right,#e5e7eb/1_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb/1_1px,transparent_1px)]' 
-            : 'bg-[linear-gradient(to_right,#4f46e5/3_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5/3_1px,transparent_1px)]'
-        } bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]`}></div>
+        <div className={`absolute inset-0 transition-opacity duration-500 bg-grid ${
+          themeMode === 'light' ? 'opacity-10' : 'opacity-5'
+        }`}></div>
+        
+        {/* Dots pattern */}
+        <div className={`absolute inset-0 transition-opacity duration-500 bg-dots ${
+          themeMode === 'light' ? 'opacity-10' : 'opacity-5'
+        }`}></div>
         
         {/* Gradient overlays */}
         <div className={`absolute inset-0 transition-opacity duration-500 ${
           themeMode === 'light'
             ? 'bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-100/50 via-transparent to-transparent'
             : 'bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/3 via-transparent to-transparent'
-        } animate-pulse`}></div>
+        } animate-pulse-slow`}></div>
         
         <div className={`absolute inset-0 transition-opacity duration-500 ${
           themeMode === 'light'
@@ -269,35 +274,39 @@ const HomeContent = () => {
           )}
         </AnimatePresence>
 
-        {/* Floating particles */}
+        {/* Enhanced floating particles */}
         {[...Array(20)].map((_, i) => (
           <FloatingParticle key={i} theme={themeMode} />
         ))}
 
-        {/* Animated gradient orbs */}
+        {/* Animated gradient orbs with enhanced animations */}
         <GradientOrb
           theme={themeMode}
           color={themeMode === 'light' ? 'bg-blue-100/30' : 'bg-blue-500/3'}
           position={{ top: '20%', left: '10%' }}
           animation={{ x: [0, 100, 0], y: [0, 50, 0] }}
+          className="animate-float"
         />
         <GradientOrb
           theme={themeMode}
           color={themeMode === 'light' ? 'bg-purple-100/30' : 'bg-purple-500/3'}
           position={{ top: '60%', right: '10%' }}
           animation={{ x: [0, -100, 0], y: [0, -50, 0] }}
+          className="animate-float"
         />
         <GradientOrb
           theme={themeMode}
           color={themeMode === 'light' ? 'bg-pink-100/20' : 'bg-pink-500/2'}
           position={{ top: '40%', left: '30%' }}
           animation={{ x: [0, 50, 0], y: [0, -30, 0] }}
+          className="animate-float"
         />
         <GradientOrb
           theme={themeMode}
           color={themeMode === 'light' ? 'bg-indigo-100/20' : 'bg-indigo-500/2'}
           position={{ top: '70%', right: '30%' }}
           animation={{ x: [0, -30, 0], y: [0, 20, 0] }}
+          className="animate-float"
         />
       </div>
 
