@@ -124,14 +124,18 @@ const GradientOrb = ({
 }) => {
   return (
     <motion.div
-      className={`absolute w-${size} h-${size} rounded-full blur-3xl transition-opacity duration-500 ${color}`}
+      className={`absolute rounded-full blur-3xl transition-opacity duration-500 ${color}`}
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+        ...position
+      }}
       animate={animation}
       transition={{
         duration: 20,
         repeat: Infinity,
         ease: "linear"
       }}
-      style={position}
     />
   );
 };
