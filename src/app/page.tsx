@@ -34,29 +34,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-// Theme toggle button
-const ThemeToggle = () => {
-  const { theme, toggleTheme } = useContext(ThemeContext);
-  
-  return (
-    <button
-      onClick={toggleTheme}
-      className="fixed top-4 right-4 p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 z-50"
-    >
-      {theme === 'dark' ? (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-      ) : (
-        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-        </svg>
-      )}
-    </button>
-  );
-};
-
-// Shooting star component
+// Enhanced shooting star component
 const ShootingStar = () => {
   const startX = Math.random() * 100;
   const startY = -20;
@@ -68,7 +46,7 @@ const ShootingStar = () => {
 
   return (
     <motion.div
-      className="absolute"
+      className="absolute z-0"
       style={{
         left: `${startX}%`,
         top: `${startY}%`,
@@ -98,7 +76,7 @@ const ShootingStar = () => {
   );
 };
 
-// Floating particle component
+// Enhanced floating particle component
 const FloatingParticle = () => {
   const size = Math.random() * 3 + 1;
   const duration = 3 + Math.random() * 2;
@@ -108,7 +86,7 @@ const FloatingParticle = () => {
 
   return (
     <motion.div
-      className="absolute rounded-full"
+      className="absolute rounded-full z-0"
       style={{
         width: `${size}px`,
         height: `${size}px`,
@@ -132,7 +110,7 @@ const FloatingParticle = () => {
   );
 };
 
-// Gradient orb component
+// New animated gradient orb component
 const GradientOrb = ({ 
   color, 
   size = 96, 
@@ -146,7 +124,7 @@ const GradientOrb = ({
 }) => {
   return (
     <motion.div
-      className={`absolute rounded-full blur-3xl transition-opacity duration-500 ${color}`}
+      className={`absolute rounded-full blur-3xl z-0 ${color}`}
       style={{
         width: `${size}px`,
         height: `${size}px`,
@@ -173,6 +151,28 @@ const GradientText = ({ children, className = '' }: { children: React.ReactNode;
   );
 };
 
+// Theme toggle button
+const ThemeToggle = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  
+  return (
+    <button
+      onClick={toggleTheme}
+      className="fixed top-4 right-4 p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 z-50"
+    >
+      {theme === 'dark' ? (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+      ) : (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      )}
+    </button>
+  );
+};
+
 // Main component
 const HomeContent = () => {
   const { theme } = useContext(ThemeContext);
@@ -189,6 +189,8 @@ const HomeContent = () => {
     setEmailStatus(null);
 
     try {
+      console.log('Submitting form with:', { email, nickname });
+      
       const response = await fetch('/api/waitlist', {
         method: 'POST',
         headers: {
@@ -197,7 +199,9 @@ const HomeContent = () => {
         body: JSON.stringify({ email, nickname }),
       });
 
+      console.log('Response status:', response.status);
       const data = await response.json();
+      console.log('Response data:', data);
 
       if (!response.ok) {
         throw new Error(data.error || 'Failed to join waitlist');
@@ -209,6 +213,7 @@ const HomeContent = () => {
       setEmail('');
       setNickname('');
     } catch (error) {
+      console.error('Error details:', error);
       setStatus('error');
       if (error instanceof Error) {
         setMessage(error.message === 'Failed to fetch' 
@@ -229,7 +234,7 @@ const HomeContent = () => {
       <ThemeToggle />
       
       {/* Background effects */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden z-0">
         {/* Grid pattern */}
         <div className={`absolute inset-0 transition-opacity duration-500 ${
           theme === 'light' 
