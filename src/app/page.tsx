@@ -34,7 +34,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-// Enhanced shooting star component
+// Enhanced shooting star component (night mode only)
 const ShootingStar = () => {
   const startX = Math.random() * 100;
   const startY = -20;
@@ -77,7 +77,7 @@ const ShootingStar = () => {
 };
 
 // Enhanced floating particle component
-const FloatingParticle = () => {
+const FloatingParticle = ({ theme }: { theme: 'light' | 'dark' }) => {
   const size = Math.random() * 3 + 1;
   const duration = 3 + Math.random() * 2;
   const delay = Math.random() * 2;
@@ -90,7 +90,7 @@ const FloatingParticle = () => {
       style={{
         width: `${size}px`,
         height: `${size}px`,
-        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
         top: `${startY}%`,
         left: `${startX}%`,
       }}
@@ -112,11 +112,13 @@ const FloatingParticle = () => {
 
 // New animated gradient orb component
 const GradientOrb = ({ 
+  theme,
   color, 
   size = 96, 
   position = { top: '20%', left: '10%' },
   animation = { x: [0, 100, 0], y: [0, 50, 0] }
 }: { 
+  theme: 'light' | 'dark';
   color: string;
   size?: number;
   position?: { top: string; left?: string; right?: string };
@@ -176,6 +178,7 @@ const ThemeToggle = () => {
 // Main component
 const HomeContent = () => {
   const { theme } = useContext(ThemeContext);
+  const themeMode = theme as 'light' | 'dark';
   const [email, setEmail] = useState('');
   const [nickname, setNickname] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -227,7 +230,7 @@ const HomeContent = () => {
 
   return (
     <div className={`min-h-screen flex flex-col relative overflow-hidden transition-colors duration-500 ${
-      theme === 'light' 
+      themeMode === 'light' 
         ? 'bg-gradient-to-b from-white to-gray-50 text-gray-900' 
         : 'bg-gradient-to-b from-gray-900 to-gray-800 text-white'
     }`}>
@@ -237,27 +240,27 @@ const HomeContent = () => {
       <div className="absolute inset-0 overflow-hidden z-0">
         {/* Grid pattern */}
         <div className={`absolute inset-0 transition-opacity duration-500 ${
-          theme === 'light' 
+          themeMode === 'light' 
             ? 'bg-[linear-gradient(to_right,#e5e7eb/1_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb/1_1px,transparent_1px)]' 
             : 'bg-[linear-gradient(to_right,#4f46e5/3_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5/3_1px,transparent_1px)]'
         } bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]`}></div>
         
         {/* Gradient overlays */}
         <div className={`absolute inset-0 transition-opacity duration-500 ${
-          theme === 'light'
+          themeMode === 'light'
             ? 'bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-100/50 via-transparent to-transparent'
             : 'bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/3 via-transparent to-transparent'
         } animate-pulse`}></div>
         
         <div className={`absolute inset-0 transition-opacity duration-500 ${
-          theme === 'light'
+          themeMode === 'light'
             ? 'bg-gradient-to-r from-blue-100/30 to-purple-100/30'
             : 'bg-gradient-to-r from-blue-500/2 to-purple-500/2'
         } animate-gradient-x`}></div>
 
         {/* Shooting stars (only in dark mode) */}
         <AnimatePresence>
-          {theme === 'dark' && (
+          {themeMode === 'dark' && (
             <>
               {[...Array(15)].map((_, i) => (
                 <ShootingStar key={i} />
@@ -268,27 +271,31 @@ const HomeContent = () => {
 
         {/* Floating particles */}
         {[...Array(20)].map((_, i) => (
-          <FloatingParticle key={i} />
+          <FloatingParticle key={i} theme={themeMode} />
         ))}
 
         {/* Animated gradient orbs */}
         <GradientOrb
-          color={theme === 'light' ? 'bg-blue-100/30' : 'bg-blue-500/3'}
+          theme={themeMode}
+          color={themeMode === 'light' ? 'bg-blue-100/30' : 'bg-blue-500/3'}
           position={{ top: '20%', left: '10%' }}
           animation={{ x: [0, 100, 0], y: [0, 50, 0] }}
         />
         <GradientOrb
-          color={theme === 'light' ? 'bg-purple-100/30' : 'bg-purple-500/3'}
+          theme={themeMode}
+          color={themeMode === 'light' ? 'bg-purple-100/30' : 'bg-purple-500/3'}
           position={{ top: '60%', right: '10%' }}
           animation={{ x: [0, -100, 0], y: [0, -50, 0] }}
         />
         <GradientOrb
-          color={theme === 'light' ? 'bg-pink-100/20' : 'bg-pink-500/2'}
+          theme={themeMode}
+          color={themeMode === 'light' ? 'bg-pink-100/20' : 'bg-pink-500/2'}
           position={{ top: '40%', left: '30%' }}
           animation={{ x: [0, 50, 0], y: [0, -30, 0] }}
         />
         <GradientOrb
-          color={theme === 'light' ? 'bg-indigo-100/20' : 'bg-indigo-500/2'}
+          theme={themeMode}
+          color={themeMode === 'light' ? 'bg-indigo-100/20' : 'bg-indigo-500/2'}
           position={{ top: '70%', right: '30%' }}
           animation={{ x: [0, -30, 0], y: [0, 20, 0] }}
         />
@@ -313,7 +320,7 @@ const HomeContent = () => {
             </motion.h1>
             <motion.p 
               className={`text-xl ${
-                theme === 'light' ? 'text-gray-600' : 'text-gray-300'
+                themeMode === 'light' ? 'text-gray-600' : 'text-gray-300'
               }`}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -326,7 +333,7 @@ const HomeContent = () => {
 
           <motion.div
             className={`backdrop-blur-lg p-8 rounded-xl shadow-lg border transition-colors duration-500 ${
-              theme === 'light'
+              themeMode === 'light'
                 ? 'bg-white/80 border-gray-200'
                 : 'bg-white/10 border-white/20'
             }`}
@@ -343,7 +350,7 @@ const HomeContent = () => {
                   placeholder="Enter your email"
                   required
                   className={`w-full px-8 py-5 text-base rounded-xl transition-colors duration-500 ${
-                    theme === 'light'
+                    themeMode === 'light'
                       ? 'bg-white border-gray-200 focus:border-blue-500'
                       : 'bg-gray-800/50 border-gray-700 focus:border-blue-500'
                   } border focus:ring-2 focus:ring-blue-500 outline-none hover:bg-opacity-90`}
@@ -354,7 +361,7 @@ const HomeContent = () => {
                   onChange={(e) => setNickname(e.target.value)}
                   placeholder="How should we call you? (optional)"
                   className={`w-full px-8 py-5 text-base rounded-xl transition-colors duration-500 ${
-                    theme === 'light'
+                    themeMode === 'light'
                       ? 'bg-white border-gray-200 focus:border-blue-500'
                       : 'bg-gray-800/50 border-gray-700 focus:border-blue-500'
                   } border focus:ring-2 focus:ring-blue-500 outline-none hover:bg-opacity-90`}
@@ -365,7 +372,7 @@ const HomeContent = () => {
                 type="submit"
                 disabled={status === 'loading'}
                 className={`w-full px-8 py-4 rounded-xl font-medium text-base transition-all duration-500 ${
-                  theme === 'light'
+                  themeMode === 'light'
                     ? 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white'
                     : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white'
                 } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed relative group overflow-hidden`}
@@ -401,7 +408,7 @@ const HomeContent = () => {
       </div>
 
       <footer className={`py-8 px-6 relative z-10 transition-colors duration-500 ${
-        theme === 'light' ? 'text-gray-600' : 'text-gray-400'
+        themeMode === 'light' ? 'text-gray-600' : 'text-gray-400'
       }`}>
         <a
           href="https://x.com/zs_josh"

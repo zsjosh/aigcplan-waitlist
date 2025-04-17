@@ -1,148 +1,89 @@
 # AIGC Plan Waitlist
 
-A modern waitlist application built with Next.js, Prisma, and PostgreSQL. Features a beautiful UI with dark/light mode support, email notifications, and real-time form validation.
+A modern, interactive waitlist application built with Next.js, featuring beautiful UI, email notifications, and dynamic background effects.
 
 ## Features
 
-- **Modern Design**
-  - Clean and elegant UI with smooth animations
-  - Dark and light mode support
-  - Responsive layout for all devices
-  - Beautiful gradient effects and dynamic backgrounds
+### Modern Design
+- Elegant form design with smooth transitions
+- Dynamic background effects with shooting stars and floating particles
+- Theme switching between light and dark modes
+- Responsive layout for all devices
 
-- **Interactive Elements**
-  - Real-time form validation
-  - Smooth transitions and hover effects
-  - Dynamic background animations
-  - Theme toggle button
+### Interactive Elements
+- Real-time form validation
+- Smooth animations and transitions
+- Dynamic background effects that adapt to the current theme
+- Theme toggle with persistent preference
 
-- **Email Collection**
-  - Secure email storage
-  - Optional nickname collection
-  - Duplicate email prevention
-  - Real-time status feedback
+### Email Collection
+- Secure email storage with Prisma and PostgreSQL
+- Optional nickname collection
+- Welcome email notifications via Resend
+- Email status tracking
 
-- **Welcome Emails**
-  - Automated welcome emails
-  - Customizable email templates
-  - Email status tracking
-  - Error handling and logging
+### Tech Stack
+- **Frontend**: Next.js 14, Tailwind CSS, Framer Motion
+- **Backend**: PostgreSQL, Prisma
+- **Email**: Resend
+- **Deployment**: Vercel
 
-## Tech Stack
-
-- **Frontend**
-  - Next.js 14
-  - Tailwind CSS
-  - Framer Motion
-  - React Context API
-
-- **Backend**
-  - PostgreSQL
-  - Prisma ORM
-  - Resend (Email Service)
-
-- **Deployment**
-  - Vercel
+### UI Components
+- **Form Design**: Elegant input fields with validation
+- **Animations**: Smooth transitions and hover effects
+- **Background Effects**: 
+  - Dynamic shooting stars in dark mode
+  - Floating particles in both themes
+  - Gradient orbs with smooth animations
+  - Grid patterns that adapt to the theme
+- **Theme Switching**: 
+  - Light mode with subtle gradients
+  - Dark mode with enhanced visual effects
+  - Persistent theme preference
 
 ## Getting Started
 
 ### Prerequisites
-
 - Node.js 18+
 - PostgreSQL database
-- Resend API key
+- Resend account for email functionality
 
 ### Environment Variables
-
-Create a `.env` file in the root directory with the following variables:
-
+Create a `.env` file with the following variables:
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/waitlist"
-RESEND_API_KEY="your_resend_api_key"
-REPLY_TO_EMAIL="your_reply_to_email"
-NEXT_PUBLIC_APP_URL="http://localhost:3000"
+DATABASE_URL="postgresql://..."
+RESEND_API_KEY="re_..."
+REPLY_TO_EMAIL="your-email@example.com"
+NEXT_PUBLIC_APP_URL="https://your-domain.com"
 ```
 
 ### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/aigcplan-waitlist.git
-   cd aigcplan-waitlist
-   ```
-
+1. Clone the repository
 2. Install dependencies:
    ```bash
    npm install
    ```
-
 3. Run database migrations:
    ```bash
    npx prisma migrate dev
    ```
-
 4. Start the development server:
    ```bash
    npm run dev
    ```
 
 ### Deployment
-
 1. Push your code to GitHub
 2. Connect your repository to Vercel
-3. Add environment variables in Vercel project settings
+3. Add environment variables in Vercel dashboard
 4. Deploy!
 
-## Features in Detail
-
-### UI Components
-
-- **Form Design**
-  - Clean and modern input fields
-  - Smooth hover and focus states
-  - Real-time validation feedback
-  - Accessible form controls
-
-- **Animations**
-  - Smooth page transitions
-  - Dynamic background effects
-  - Hover animations
-  - Loading states
-
-- **Theme Support**
-  - Dark and light mode
-  - Theme persistence using localStorage
-  - Smooth theme transitions
-  - Adaptive color schemes
-
-- **Responsive Design**
-  - Mobile-first approach
-  - Flexible layouts
-  - Adaptive typography
-  - Touch-friendly interactions
-
-### Email System
-
-- **Welcome Emails**
-  - Personalized greeting
-  - Waitlist status information
-  - Reply-to functionality
-  - Error handling
-
-- **Database Integration**
-  - Secure data storage
-  - Email validation
-  - Status tracking
-  - Error logging
-
 ## Contributing
-
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
 ## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT
