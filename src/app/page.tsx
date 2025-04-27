@@ -177,6 +177,91 @@ const ThemeToggle = () => {
   );
 };
 
+// 添加新的成功动画组件
+const SuccessAnimation = () => {
+  return (
+    <motion.div
+      className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 backdrop-blur-sm"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="relative w-64 h-64 flex items-center justify-center"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ type: "spring", damping: 15 }}
+      >
+        {/* 成功图标动画 */}
+        <svg className="w-24 h-24 text-green-500" viewBox="0 0 24 24" fill="none">
+          <motion.path
+            d="M7 13L10 16L17 9"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          />
+          <motion.circle
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="2"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 0.8 }}
+          />
+        </svg>
+        
+        {/* 祝贺文字 */}
+        <motion.div
+          className="absolute -bottom-20 text-center"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <p className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+            恭喜您!
+          </p>
+          <p className="text-white mt-2">
+            您已成功加入等待名单
+          </p>
+        </motion.div>
+
+        {/* 飘落的星星和粒子 */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: '-20%',
+              background: `rgba(${Math.random() * 100 + 155}, ${Math.random() * 100 + 155}, 255, ${Math.random() * 0.5 + 0.5})`,
+              boxShadow: `0 0 ${Math.random() * 10 + 5}px rgba(${Math.random() * 100 + 155}, ${Math.random() * 100 + 155}, 255, 0.8)`
+            }}
+            animate={{
+              y: ['0%', '500%'],
+              opacity: [0, 1, 0],
+              scale: [1, Math.random() * 0.5 + 0.5],
+            }}
+            transition={{
+              duration: Math.random() * 2 + 1,
+              ease: "easeInOut",
+              delay: Math.random() * 0.5,
+              repeat: Infinity,
+              repeatDelay: Math.random() * 3
+            }}
+          />
+        ))}
+      </motion.div>
+    </motion.div>
+  );
+};
+
 // Main component
 const HomeContent = () => {
   const { theme } = useContext(ThemeContext);
@@ -186,6 +271,7 @@ const HomeContent = () => {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
   const [emailStatus, setEmailStatus] = useState<'sent' | 'failed' | 'not_sent' | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -217,6 +303,10 @@ const HomeContent = () => {
       setMessage(data.emailStatusMessage);
       setEmail('');
       setNickname('');
+      // 显示成功动画
+      setShowSuccess(true);
+      // 3秒后自动关闭成功动画
+      setTimeout(() => setShowSuccess(false), 3000);
     } catch (error) {
       console.error('Error details:', error);
       setStatus('error');
@@ -237,6 +327,11 @@ const HomeContent = () => {
         : 'bg-gradient-to-b from-gray-900 to-gray-800 text-white'
     }`}>
       <ThemeToggle />
+      
+      {/* 成功动画 */}
+      <AnimatePresence>
+        {showSuccess && <SuccessAnimation />}
+      </AnimatePresence>
       
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden z-0">
