@@ -367,7 +367,7 @@ const HomeContent = () => {
     <div className={`min-h-screen flex flex-col relative overflow-hidden transition-colors duration-500 ${
       themeMode === 'light' 
         ? 'bg-gradient-to-b from-white to-gray-50 text-gray-900' 
-        : 'bg-gradient-to-b from-gray-900 to-gray-800 text-white'
+        : 'bg-[radial-gradient(circle_at_center,#1E40AF,#000000)] text-white'
     }`}>
       <ThemeToggle />
       
@@ -386,8 +386,8 @@ const HomeContent = () => {
         <div className={`absolute inset-0 transition-opacity duration-500 ${
           themeMode === 'light' 
             ? 'bg-[linear-gradient(to_right,#e5e7eb/1_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb/1_1px,transparent_1px)]' 
-            : 'bg-[linear-gradient(to_right,#4f46e5/3_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5/3_1px,transparent_1px)]'
-        } bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]`}></div>
+            : 'bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)]'
+        } bg-[size:20px_20px]`}></div>
         
         {/* Gradient overlays */}
         <div className={`absolute inset-0 transition-opacity duration-500 ${
