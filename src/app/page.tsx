@@ -385,8 +385,8 @@ const HomeContent = () => {
         {/* Grid pattern */}
         <div className={`absolute inset-0 transition-opacity duration-500 ${
           themeMode === 'light' 
-            ? 'bg-[linear-gradient(to_right,#e5e7eb/0.5_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb/0.5_1px,transparent_1px)]' 
-            : 'bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)]'
+            ? 'bg-[linear-gradient(to_right,#e5e7eb/0.25_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb/0.25_1px,transparent_1px)]' 
+            : 'bg-[linear-gradient(to_right,rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.025)_1px,transparent_1px)]'
         } bg-[size:20px_20px]`}></div>
         
         {/* Gradient overlays */}
