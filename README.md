@@ -15,6 +15,11 @@ A modern, interactive waitlist application built with Next.js, featuring beautif
 - Smooth animations and transitions
 - Dynamic background effects that adapt to the current theme
 - Theme toggle with persistent preference
+- **Animated Join Button**
+  - Breathing gradient animation with smooth color transitions
+  - Hover and tap animations for better interactivity
+  - Animated arrow indicator
+  - Theme-adaptive colors and effects
 
 ### Background Effects
 - **Floating Paths**

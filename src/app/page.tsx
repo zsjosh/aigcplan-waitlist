@@ -512,20 +512,7 @@ const HomeContent = () => {
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={status === 'loading'}
-                className={`w-full px-8 py-4 rounded-xl font-medium text-base transition-all duration-500 ${
-                  themeMode === 'light'
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white'
-                    : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white'
-                } focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed relative group overflow-hidden`}
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                <span className="relative">
-                  {status === 'loading' ? 'Joining...' : 'Join Waitlist'}
-                </span>
-              </button>
+              <JoinButton theme={themeMode} />
             </form>
 
             {message && (
@@ -567,6 +554,51 @@ const HomeContent = () => {
         </a>
       </footer>
     </div>
+  );
+};
+
+const JoinButton = ({ theme }: { theme: 'light' | 'dark' }) => {
+  return (
+    <motion.button
+      type="submit"
+      className={`relative px-8 py-4 rounded-full text-lg font-medium overflow-hidden group ${
+        theme === 'light' 
+          ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white' 
+          : 'bg-gradient-to-r from-blue-400 to-purple-400 text-white'
+      }`}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      {/* Breathing gradient background */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500"
+        animate={{
+          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+        style={{
+          backgroundSize: '200% 100%',
+        }}
+      />
+      
+      {/* Overlay for better text visibility */}
+      <div className="absolute inset-0 bg-black/10 backdrop-blur-sm" />
+      
+      {/* Button content */}
+      <div className="relative flex items-center gap-2">
+        <span>Join Waitlist</span>
+        <motion.div
+          animate={{ x: [0, 4, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        >
+          →
+        </motion.div>
+      </div>
+    </motion.button>
   );
 };
 
