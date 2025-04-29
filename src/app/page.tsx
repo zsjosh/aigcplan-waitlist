@@ -563,7 +563,7 @@ const HomeContent = () => {
               <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5"/>
               <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" stroke="currentColor" strokeWidth="1.5"/>
             </svg>
-            <GradientText className="text-sm">Website</GradientText>
+            <GradientText className="text-sm">MyBlog</GradientText>
           </a>
         </div>
       </footer>
