@@ -541,17 +541,31 @@ const HomeContent = () => {
       <footer className={`py-8 px-6 relative z-10 transition-colors duration-500 ${
         themeMode === 'light' ? 'text-gray-600' : 'text-gray-400'
       }`}>
-        <a
-          href="https://x.com/zs_josh"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center space-x-2 hover:text-blue-400 transition-colors group"
-        >
-          <svg className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-          <GradientText className="text-sm">Follow me on X</GradientText>
-        </a>
+        <div className="flex items-center space-x-6">
+          <a
+            href="https://x.com/zs_josh"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center space-x-2 hover:text-blue-400 transition-colors group"
+          >
+            <svg className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <GradientText className="text-sm">Follow me on X</GradientText>
+          </a>
+          <a
+            href="https://josh.xin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center space-x-2 hover:text-blue-400 transition-colors group"
+          >
+            <svg className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5"/>
+              <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" stroke="currentColor" strokeWidth="1.5"/>
+            </svg>
+            <GradientText className="text-sm">Website</GradientText>
+          </a>
+        </div>
       </footer>
     </div>
   );
