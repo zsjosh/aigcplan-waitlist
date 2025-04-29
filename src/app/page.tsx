@@ -573,8 +573,8 @@ const JoinButton = ({ theme }: { theme: 'light' | 'dark' }) => {
       <motion.div
         className={`absolute inset-0 bg-gradient-to-r rounded-2xl ${
           theme === 'light'
-            ? 'from-blue-500 via-purple-500 to-blue-500'
-            : 'from-blue-400 via-purple-400 to-blue-400'
+            ? 'from-blue-500 via-indigo-500 to-purple-500'
+            : 'from-blue-400 via-indigo-400 to-purple-400'
         }`}
         animate={{
           backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
