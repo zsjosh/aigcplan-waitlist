@@ -385,8 +385,8 @@ const HomeContent = () => {
         {/* Grid pattern */}
         <div className={`absolute inset-0 transition-opacity duration-500 ${
           themeMode === 'light' 
-            ? 'bg-[linear-gradient(to_right,#e5e7eb/1_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb/1_1px,transparent_1px)]' 
-            : 'bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)]'
+            ? 'bg-[linear-gradient(to_right,#e5e7eb/0.5_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb/0.5_1px,transparent_1px)]' 
+            : 'bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)]'
         } bg-[size:20px_20px]`}></div>
         
         {/* Gradient overlays */}
@@ -561,17 +561,17 @@ const JoinButton = ({ theme }: { theme: 'light' | 'dark' }) => {
   return (
     <motion.button
       type="submit"
-      className={`relative w-full px-8 py-4 rounded-xl text-lg font-medium overflow-hidden group ${
+      className={`relative w-full px-8 py-4 rounded-[var(--radius)] text-lg font-medium overflow-hidden group transition-all duration-300 ${
         theme === 'light' 
-          ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white' 
-          : 'bg-gradient-to-r from-blue-400 to-purple-400 text-white'
+          ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
+          : 'bg-primary text-primary-foreground hover:bg-primary/90'
       }`}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
       {/* Breathing gradient background */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500"
+        className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary"
         animate={{
           backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
         }}
@@ -586,14 +586,15 @@ const JoinButton = ({ theme }: { theme: 'light' | 'dark' }) => {
       />
       
       {/* Overlay for better text visibility */}
-      <div className="absolute inset-0 bg-black/10 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/5 backdrop-blur-[2px]" />
       
       {/* Button content */}
       <div className="relative flex items-center justify-center gap-2">
-        <span>Join Waitlist</span>
+        <span className="font-medium">Join Waitlist</span>
         <motion.div
           animate={{ x: [0, 4, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
+          className="text-lg"
         >
           →
         </motion.div>
