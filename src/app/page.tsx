@@ -563,15 +563,19 @@ const JoinButton = ({ theme }: { theme: 'light' | 'dark' }) => {
       type="submit"
       className={`relative w-full px-8 py-4 rounded-[var(--radius)] text-lg font-medium overflow-hidden group transition-all duration-300 ${
         theme === 'light' 
-          ? 'bg-primary text-primary-foreground hover:bg-primary/90' 
-          : 'bg-primary text-primary-foreground hover:bg-primary/90'
+          ? 'text-white' 
+          : 'text-white'
       }`}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
       {/* Breathing gradient background */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary"
+        className={`absolute inset-0 bg-gradient-to-r ${
+          theme === 'light'
+            ? 'from-blue-500 via-purple-500 to-blue-500'
+            : 'from-blue-400 via-purple-400 to-blue-400'
+        }`}
         animate={{
           backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
         }}
