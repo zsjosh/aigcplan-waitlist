@@ -561,7 +561,7 @@ const JoinButton = ({ theme }: { theme: 'light' | 'dark' }) => {
   return (
     <motion.button
       type="submit"
-      className={`relative w-full px-8 py-4 rounded-[var(--radius)] text-lg font-medium overflow-hidden group transition-all duration-300 ${
+      className={`relative w-full px-8 py-4 rounded-2xl text-lg font-medium overflow-hidden group transition-all duration-300 ${
         theme === 'light' 
           ? 'text-white' 
           : 'text-white'
@@ -571,7 +571,7 @@ const JoinButton = ({ theme }: { theme: 'light' | 'dark' }) => {
     >
       {/* Breathing gradient background */}
       <motion.div
-        className={`absolute inset-0 bg-gradient-to-r ${
+        className={`absolute inset-0 bg-gradient-to-r rounded-2xl ${
           theme === 'light'
             ? 'from-blue-500 via-purple-500 to-blue-500'
             : 'from-blue-400 via-purple-400 to-blue-400'
@@ -590,7 +590,7 @@ const JoinButton = ({ theme }: { theme: 'light' | 'dark' }) => {
       />
       
       {/* Overlay for better text visibility */}
-      <div className="absolute inset-0 bg-black/5 backdrop-blur-[2px]" />
+      <div className="absolute inset-0 bg-black/5 backdrop-blur-[2px] rounded-2xl" />
       
       {/* Button content */}
       <div className="relative flex items-center justify-center gap-2">
