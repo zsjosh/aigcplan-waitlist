@@ -561,13 +561,13 @@ const JoinButton = ({ theme }: { theme: 'light' | 'dark' }) => {
   return (
     <motion.button
       type="submit"
-      className={`relative px-8 py-4 rounded-full text-lg font-medium overflow-hidden group ${
+      className={`relative w-full px-8 py-4 rounded-xl text-lg font-medium overflow-hidden group ${
         theme === 'light' 
           ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white' 
           : 'bg-gradient-to-r from-blue-400 to-purple-400 text-white'
       }`}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
     >
       {/* Breathing gradient background */}
       <motion.div
@@ -589,7 +589,7 @@ const JoinButton = ({ theme }: { theme: 'light' | 'dark' }) => {
       <div className="absolute inset-0 bg-black/10 backdrop-blur-sm" />
       
       {/* Button content */}
-      <div className="relative flex items-center gap-2">
+      <div className="relative flex items-center justify-center gap-2">
         <span>Join Waitlist</span>
         <motion.div
           animate={{ x: [0, 4, 0] }}
