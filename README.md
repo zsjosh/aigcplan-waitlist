@@ -17,6 +17,18 @@ A modern, interactive waitlist application built with Next.js, featuring beautif
 - Theme toggle with persistent preference
 
 ### Background Effects
+- **Floating Paths**
+  - Elegant flowing lines with varying opacity
+  - Smooth path animations
+  - Subtle color transitions
+  - Multiple layers for depth effect
+
+- **Grid Pattern**
+  - Minimalist grid overlay
+  - Subtle white lines for depth
+  - Responsive to theme changes
+  - Perfect for dark mode aesthetics
+
 - **Shooting Stars (Dark Mode)**
   - 15 animated shooting stars with glowing trails
   - Random movement patterns and timing
@@ -30,10 +42,10 @@ A modern, interactive waitlist application built with Next.js, featuring beautif
   - Random size and movement patterns
 
 - **Gradient Effects**
+  - Deep blue to black radial gradient
   - Animated gradient overlays
   - Smooth color transitions
   - Theme-specific color schemes
-  - Dynamic grid patterns
 
 ### Email Collection
 - Secure email storage with Prisma and PostgreSQL
